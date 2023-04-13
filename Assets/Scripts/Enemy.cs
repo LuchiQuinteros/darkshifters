@@ -10,6 +10,17 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     //private GameObject spawn;
     private ParticleSystem _particleSystem;
+    [SerializeField]
+    Transform[] waypoints;
+    Vector3 siguientePosicion;
+    float velocidad = 2.0f;
+    float distanciaChange = 0.5f;
+    int numeroSiguientePosition = 0;
+   
+    private void Start()
+    {
+        siguientePosicion = waypoints[0].position;
+    }
 
     private void OnTriggerEnter(Collider other) // Cuando el enemigo toca la layer 6 (cubo) (Layer llamada Attack) el enemigo pierde vida.
     {
@@ -45,12 +56,21 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        transform.position = Vector3.MoveTowards(transform.position, siguientePosicion, velocidad * Time.deltaTime);
+        if (Vector3.Distance(transform.position, siguientePosicion) < distanciaChange)
+        {
+            numeroSiguientePosition++;
+            if (numeroSiguientePosition >= waypoints.Length)
+            {
+                numeroSiguientePosition = 0;
+                siguientePosicion = waypoints[numeroSiguientePosition].position;
+            }
+        }
     }
-
     // IEnumerator spawnParticles() //Esta funcion spawnea la cajita durante poco tiempo y luego la apaga.
     // {
     //     spawn.SetActive(true);
     //    yield return new WaitForSeconds(0.5f);
 
     //    spawn.SetActive(false);
-} 
+ } 
