@@ -79,6 +79,11 @@ public class MovementScript2 : MonoBehaviour
         if (Input.GetKey(KeyCode.W)) movement.z = 1f;
         if (Input.GetKey(KeyCode.S)) movement.z = -1f;
         anim.SetBool("isRunning", movement.magnitude > 0);
+
+        if (movement.x != 0 && movement.z != 0)
+        {
+            movement = movement.normalized;
+        }
     }
 
     void MouseTracking()
