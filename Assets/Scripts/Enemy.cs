@@ -63,8 +63,8 @@ public class Enemy : MonoBehaviour
             if (numeroSiguientePosition >= waypoints.Length)
             {
                 numeroSiguientePosition = 0;
-                siguientePosicion = waypoints[numeroSiguientePosition].position;
             }
+            siguientePosicion = waypoints[numeroSiguientePosition].position;
         }
     }
     // IEnumerator spawnParticles() //Esta funcion spawnea la cajita durante poco tiempo y luego la apaga.
