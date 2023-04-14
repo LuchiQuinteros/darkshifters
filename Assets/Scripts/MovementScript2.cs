@@ -14,6 +14,7 @@ public class MovementScript2 : MonoBehaviour
 
     Vector3 movement = Vector3.zero;
 
+
     #region variablesDash
     // variables para el dash: duracion, velocidad, tiempo de cooldown y creacion del vector de direccion que se inicia en 0 en x,y,z.
     [SerializeField]
@@ -29,6 +30,9 @@ public class MovementScript2 : MonoBehaviour
     private bool canAttack = true;
     [SerializeField]
     private float attackCooldown = 1f;
+
+    public float dashDistance = 5f;
+ 
 
     #endregion
 
@@ -53,6 +57,8 @@ public class MovementScript2 : MonoBehaviour
         }
         if (!isDashing && canDash && Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Vector3 startPos = transform.position;
+            Vector3 dashPos = startPos + transform.forward * dashDistance;
             StartCoroutine(Dash());
             StartCoroutine(DashCooldown());
         }
@@ -79,6 +85,12 @@ public class MovementScript2 : MonoBehaviour
         if (Input.GetKey(KeyCode.W)) movement.z = 1f;
         if (Input.GetKey(KeyCode.S)) movement.z = -1f;
         anim.SetBool("isRunning", movement.magnitude > 0);
+
+        if(movement.x != 0 && movement.z != 0)
+        {
+            movement = movement.normalized;
+        }
+        
     }
 
     void MouseTracking()
@@ -105,7 +117,9 @@ public class MovementScript2 : MonoBehaviour
         while (dashTime < dashDuration)
         {
             dashTime += Time.deltaTime;
-            rb.AddForce(dashDirection * dashSpeed);
+            //rb.AddForce(dashDirection * dashSpeed);
+            
+            rb.MovePosition(rb.position + dashDirection * dashSpeed * Time.deltaTime);
             yield return null;
         }
         isDashing = false;
@@ -149,7 +163,6 @@ public class MovementScript2 : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
 
 
     // private void BasicAttack()
