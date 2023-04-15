@@ -5,27 +5,34 @@ using UnityEngine;
 
 public class MovementScript2 : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private float _movementSpeed;
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private GameObject spawnAttack;
+    [SerializeField]
+    private float _rotationSpeed;
+    [SerializeField]
+    private GameObject spawnAttack; //Para declarar a la caja
 
-    private bool canDash = true;
-
-    [SerializeField] private float dashSpeed = 30f;
-    [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashCooldown = 2f;
-
-
-    public Rigidbody rb;
-    private Animator anim;
     Vector3 movement = Vector3.zero;
 
-    [SerializeField] private float attackCooldown = 1f;
+    #region variablesDash
+    // variables para el dash: duracion, velocidad, tiempo de cooldown y creacion del vector de direccion que se inicia en 0 en x,y,z.
+    [SerializeField]
+    public float dashDuration = 0.5f;
+    [SerializeField]
+    public float dashSpeed = 1f;
+    [SerializeField]
+    public float dashCooldown = 1f;
+    private Vector3 dashDirection = Vector3.zero;
+    private bool isDashing = false;
+    private bool canDash = true;
+    public Rigidbody rb;
     private bool canAttack = true;
+    [SerializeField]
+    private float attackCooldown = 1f;
 
+    #endregion
 
-
+    private Animator anim;
 
     void Start()
     {
@@ -34,19 +41,27 @@ public class MovementScript2 : MonoBehaviour
 
     private void Update()
     {
-        BasicMovement();
+     
+       
+        BasicMovement(); 
         MouseTracking();
-
+        #region Dash
+        // Chequea el input del dash y la direccion del mouse en ese momento, llama a las funciones para mover el personaje y activar el cooldown
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dashDirection = transform.forward;
+        }
+        if (!isDashing && canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(Dash());
+            StartCoroutine(DashCooldown());
+        }
+        #endregion
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
             StartCoroutine(spawnAttackBox());
             StartCoroutine(AttackCooldown());
             //BasicAttack();
-        }
-        if (canDash && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            StartCoroutine(Dash());
-
         }
     }
 
@@ -54,23 +69,6 @@ public class MovementScript2 : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * _movementSpeed * Time.deltaTime);
     }
-
-    IEnumerator Dash()
-    {
-        canDash = false;
-        rb.AddForce(movement.normalized * dashSpeed, ForceMode.Impulse);
-        yield return new WaitForSeconds(dashDuration);
-        rb.velocity = Vector3.zero;
-        print("Cooldown Iniciado\n");
-        yield return new WaitForSeconds(dashCooldown);
-        print("Cooldown Finalizado\n");
-        canDash = true;
-    }
-
-
-
-
-
 
 
     void BasicMovement()
@@ -103,8 +101,33 @@ public class MovementScript2 : MonoBehaviour
         }
     }
 
-    IEnumerator spawnAttackBox()
+    #region Dash
+    // Mueve el personaje hasta que termine la duracion del dash.
+    IEnumerator Dash()
     {
+        isDashing = true;
+        float dashTime = 0f;
+        while (dashTime < dashDuration)
+        {
+            dashTime += Time.deltaTime;
+            rb.AddForce(dashDirection * dashSpeed);
+            yield return null;
+        }
+        isDashing = false;
+        rb.velocity = Vector3.zero;
+    }
+    // Aplica el cooldown para que no puedas volver a usarlo hasta pasado un tiempo.
+    IEnumerator DashCooldown()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+    #endregion
+
+     IEnumerator spawnAttackBox() //Esta funcion spawnea la cajita durante poco tiempo y luego la apaga.
+     {
+        
         spawnAttack.SetActive(true);
         _rotationSpeed = 0;
         _movementSpeed = 0;
@@ -117,19 +140,22 @@ public class MovementScript2 : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+       if (other.gameObject.layer == 7)
+       {
+           spawnAttack.SetActive(false);
+       }
+    }
+
     IEnumerator AttackCooldown()
     {
         canAttack = false;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-        {
-            spawnAttack.SetActive(false);
-        }
-    }
+
+
 
     // private void BasicAttack()
     //{
@@ -145,5 +171,6 @@ public class MovementScript2 : MonoBehaviour
     // anim.SetTrigger("isAttacking");
     // }
     //  }
+
 
 }
