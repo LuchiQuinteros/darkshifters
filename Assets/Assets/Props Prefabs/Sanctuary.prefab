@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8966955101131513017}
   - component: {fileID: 6599446284363556979}
   - component: {fileID: 4671036717441544637}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sanctuary
   m_TagString: Untagged
   m_Icon: {fileID: 0}

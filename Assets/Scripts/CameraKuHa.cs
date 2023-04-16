@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraKuHa : MonoBehaviour
 {
-    public Transform target;
+     public Transform target;
     public float smoothTime = 0.2f;
     public Vector3 offset;
     private Vector3 _velocity = Vector3.zero;
@@ -22,4 +22,5 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, smoothTime);
         }
     }
+
 }

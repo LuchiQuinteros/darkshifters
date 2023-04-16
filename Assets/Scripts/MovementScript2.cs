@@ -67,10 +67,6 @@ public class MovementScript2 : MonoBehaviour
 
 
 
-
-
-
-
     void BasicMovement()
     {
         movement.x = movement.z = 0;
@@ -129,20 +125,6 @@ public class MovementScript2 : MonoBehaviour
         }
     }
 
-    // private void BasicAttack()
-    //{
-    //  Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //  RaycastHit hit;
-
-    // if (Physics.Raycast(ray, out hit))
-    // {
-    //     Vector3 targetPosition = hit.point;
-    //   targetPosition.y = transform.position.y;
-
-    // transform.LookAt(targetPosition);
-    // anim.SetTrigger("isAttacking");
-    // }
-    //  }
 
 }
 

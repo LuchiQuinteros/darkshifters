@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7325248097560306186}
   - component: {fileID: 4777322070279247552}
   - component: {fileID: 8926815318082822656}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Big Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

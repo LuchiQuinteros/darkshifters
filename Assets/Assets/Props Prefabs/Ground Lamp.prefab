@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2648763951461619139}
   - component: {fileID: 227075051376746761}
   - component: {fileID: 5411825881470729669}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

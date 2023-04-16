@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 743472867226355874}
   - component: {fileID: 501520178933796353}
   - component: {fileID: 4823002681859002295}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rock.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4778717833158889040}
   - component: {fileID: 6829941178252571159}
   - component: {fileID: 4710188424757213014}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rock.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8040248116438473359}
   - component: {fileID: 3743087451586671068}
   - component: {fileID: 953551228871093507}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rock.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3578045772861444604}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flat Rocks 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 2128077447145096600}
   - component: {fileID: 4248627371290902502}
   - component: {fileID: 6771272995539666996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rock.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 5659053887971647624}
   - component: {fileID: 9115456110871022041}
   - component: {fileID: 6024859216830440453}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rock.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
