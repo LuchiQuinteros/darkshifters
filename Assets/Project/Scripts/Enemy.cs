@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     float distanciaChange = 0.5f;
     int numeroSiguientePosition = 0;
 
+    public IsPlayerInRange isPlayerInRange;
+
     private void Start()
     {
         siguientePosicion = waypoints[0].position;
@@ -44,7 +46,22 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        transform.position = Vector3.MoveTowards(transform.position, siguientePosicion, velocidad * Time.deltaTime);
+        
+        transform.position = Vector3.MoveTowards(transform.position, siguientePosicion, velocidad * Time.deltaTime); // va a la posicion objetivo
+
+        if (isPlayerInRange.inRange)
+        {
+            siguientePosicion = isPlayerInRange.playerTransform.position;
+        }
+        else
+        {
+            siguientePosicion = waypoints[numeroSiguientePosition].position;
+            Patrolling();
+        }
+    }
+
+    public void Patrolling()
+    {
         if (Vector3.Distance(transform.position, siguientePosicion) < distanciaChange)
         {
             numeroSiguientePosition++;
@@ -78,5 +95,4 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
-
- } 
+}
